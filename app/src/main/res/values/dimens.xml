@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="task_desc_start_margin">16dp</dimen>
+    <dimen name="task_title_text_size">16sp</dimen>
+    <dimen name="activity_margin">16dp</dimen>
+    <dimen name="fab_margin">32dp</dimen>
+    <dimen name="card_padding">8dp</dimen>
+    <dimen name="card_margin">8dp</dimen>
+    <dimen name="small_text_size">10sp</dimen>
+</resources>

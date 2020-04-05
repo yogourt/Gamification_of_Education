@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/card_margin">
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/card_padding">
+
+        <TextView android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/task_title"
+                  tools:text="Zadanie 1"
+                  android:textStyle="bold"
+                  android:layout_marginTop="6dp"/>
+
+
+        <TextView android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/task_desc"
+                  tools:text="Tresc zadania"
+                  android:layout_marginStart="@dimen/task_desc_start_margin"/>
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

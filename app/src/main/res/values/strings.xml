@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">mgr</string>
+    <string name="menu_courses">Twoje kursy</string>
+    <string name="menu_profile">Profil</string>
+    <string name="menu_leaderboards">Statystyki</string>
+
+    <string name="web_client_id">413800448352-653qfbgp9h72jajpo7a08puhrv2ml28f.apps.googleusercontent.com</string>
+    <string name="web_client_secret">ZaC-tpfF1qRb_57kRGQF2sV6</string>
+    <string name="sign_in">Sign in</string>
+</resources>

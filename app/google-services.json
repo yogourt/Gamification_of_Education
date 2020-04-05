@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "413800448352",
+    "firebase_url": "https://gamificationofeducation-14289.firebaseio.com",
+    "project_id": "gamificationofeducation-14289",
+    "storage_bucket": "gamificationofeducation-14289.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:413800448352:android:ba2a34f9ab48381bdc5e05",
+        "android_client_info": {
+          "package_name": "com.blogspot.android_czy_java.apps.mgr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "413800448352-onv616he21okqbhm8s25fpjukopvjbdg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.blogspot.android_czy_java.apps.mgr",
+            "certificate_hash": "a097a3c7f20695744e098083c4babfd787c1f336"
+          }
+        },
+        {
+          "client_id": "413800448352-kftv9p9selto9t2vsuqetjqhe9vqlnq6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpBCk8OYuEThx1Zm7dAi8vvnwX8zYxYcA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "413800448352-kftv9p9selto9t2vsuqetjqhe9vqlnq6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
