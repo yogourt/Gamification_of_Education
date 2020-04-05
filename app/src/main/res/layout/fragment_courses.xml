@@ -4,4 +4,12 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list_courses"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/item_course"
+            tools:itemCount="3"/>
+
 </LinearLayout>

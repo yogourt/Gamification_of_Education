@@ -22,6 +22,8 @@ class BottomNavigationFragment : Fragment() {
         Pair(R.id.menu_leaderboards, 2)
     )
 
+    private lateinit var navigation: BottomNavigationView
+
     private val coursesFragment = CoursesFragment()
     private val profileFragment = ProfileFragment()
     private val leaderboardsFragment = LeaderboardsFragment()
@@ -29,7 +31,8 @@ class BottomNavigationFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_navigation, container, false)
 
-        prepareBottomNavigation(view.navigation)
+        this.navigation = view.navigation
+        prepareBottomNavigation()
         addBackStackChangeListener()
 
         if (fragmentManager?.findFragmentById(R.id.fragment_container) == null) {
@@ -38,7 +41,7 @@ class BottomNavigationFragment : Fragment() {
         return view
     }
 
-    private fun prepareBottomNavigation(navigation: BottomNavigationView) {
+    private fun prepareBottomNavigation() {
         navigation.setOnNavigationItemSelectedListener {
             getCurrentFragment(it.itemId)?.let {
                 replaceFragment(it)
@@ -50,7 +53,7 @@ class BottomNavigationFragment : Fragment() {
     private fun addMainFragment() {
         fragmentManager?.beginTransaction()?.add(
             R.id.fragment_container,
-            CoursesFragment()
+            coursesFragment
         )?.addToBackStack(null)?.commit()
     }
 
@@ -85,7 +88,7 @@ class BottomNavigationFragment : Fragment() {
     }
 
     private fun selectItem(itemId: Int) {
-        indexToIdMap[id]?.let { navigation.menu.getItem(it).isChecked = true; }
+        indexToIdMap[itemId]?.let { navigation.menu.getItem(it).isChecked = true; }
     }
 
 }

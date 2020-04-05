@@ -28,6 +28,11 @@ class MainActivity : AppCompatActivity() {
         private const val RC_COURSES_PERMISSIONS = 400
     }
 
+    private val scopes = arrayOf(
+        Scope(ClassroomScopes.CLASSROOM_COURSES_READONLY),
+        Scope(ClassroomScopes.CLASSROOM_COURSEWORK_ME_READONLY)
+    )
+
     @Inject
     lateinit var fetchCoursesDataOperation: FetchCoursesDataOperation
 
@@ -37,8 +42,9 @@ class MainActivity : AppCompatActivity() {
         AndroidInjection.inject(this)
 
         if (userHasPermissions()) {
-            button_sign_in.visibility = View.GONE
             initClassroomService(GoogleSignIn.getLastSignedInAccount(this)?.serverAuthCode)
+        } else {
+            button_sign_in.visibility = View.VISIBLE
         }
     }
 
@@ -50,7 +56,7 @@ class MainActivity : AppCompatActivity() {
                 this,
                 RC_COURSES_PERMISSIONS,
                 lastSignedIn,
-                Scope(ClassroomScopes.CLASSROOM_COURSES_READONLY)
+                *scopes
             )
         } else {
             val signInClient = GoogleSignIn.getClient(
@@ -63,8 +69,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun userHasPermissions() =
         GoogleSignIn.getLastSignedInAccount(this) != null && GoogleSignIn.hasPermissions(
-            GoogleSignIn.getLastSignedInAccount(this),
-            Scope(ClassroomScopes.CLASSROOM_COURSES_READONLY)
+            GoogleSignIn.getLastSignedInAccount(this), *scopes
         )
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -86,7 +91,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun createGoogleSignInOptions(): GoogleSignInOptions {
         return GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestScopes(Scope(ClassroomScopes.CLASSROOM_COURSES_READONLY))
+            .requestScopes(scopes[0], scopes[1])
             .requestServerAuthCode(resources.getString(R.string.web_client_id))
             .build()
     }

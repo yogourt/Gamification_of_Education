@@ -1,20 +1,25 @@
-package com.blogspot.android_czy_java.apps.mgr.main.db.model
+package com.blogspot.android_czy_java.apps.mgr.main.db
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.blogspot.android_czy_java.apps.mgr.main.db.dao.CourseDao
+import com.blogspot.android_czy_java.apps.mgr.main.db.dao.CoursesDao
+import com.blogspot.android_czy_java.apps.mgr.main.db.model.CourseModel
+import com.blogspot.android_czy_java.apps.mgr.main.db.model.TaskModel
 
 
 @Database(
-    entities = [CourseModel::class],
-    version = 1,
+    entities = [
+        CourseModel::class,
+        TaskModel::class
+    ],
+    version = 3,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract val courseDao: CourseDao
+    abstract val coursesDao: CoursesDao
 
     companion object {
 
@@ -29,7 +34,11 @@ abstract class AppDatabase : RoomDatabase() {
         }
 
         private fun buildDatabase(context: Context): AppDatabase {
-            return Room.databaseBuilder(context, AppDatabase::class.java, "Classroom_Gamification.db").build()
+            return Room.databaseBuilder(
+                context,
+                AppDatabase::class.java,
+                "Classroom_Gamification.db"
+            ).fallbackToDestructiveMigration().build()
         }
     }
 
