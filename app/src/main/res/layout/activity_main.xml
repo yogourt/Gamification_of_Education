@@ -5,7 +5,6 @@
               android:layout_height="match_parent">
 
     <FrameLayout
-            android:id="@+id/fragment_container"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="100">
@@ -19,6 +18,11 @@
                 android:onClick="signIn"
                 android:text="@string/sign_in"
                 style="@style/Widget.MaterialComponents.Button"/>
+
+        <FrameLayout
+                android:id="@+id/fragment_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
 
     </FrameLayout>
 

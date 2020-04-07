@@ -3,6 +3,7 @@ package com.blogspot.android_czy_java.apps.mgr.main.course
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.blogspot.android_czy_java.apps.mgr.R
@@ -22,6 +23,7 @@ class TasksAdaper(private val taskList: List<TaskModel>) : RecyclerView.Adapter<
             val task = taskList[position]
             title.text = task.title
             description.text = task.description
+            submitted.isChecked = task.completed
         }
     }
 
@@ -30,6 +32,7 @@ class TasksAdaper(private val taskList: List<TaskModel>) : RecyclerView.Adapter<
 
         val title: TextView = itemView.task_title
         val description: TextView = itemView.task_desc
+        val submitted: CheckBox = itemView.submitted
 
     }
 

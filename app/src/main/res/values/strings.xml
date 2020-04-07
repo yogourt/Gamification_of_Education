@@ -7,4 +7,6 @@
     <string name="web_client_id">413800448352-653qfbgp9h72jajpo7a08puhrv2ml28f.apps.googleusercontent.com</string>
     <string name="web_client_secret">ZaC-tpfF1qRb_57kRGQF2sV6</string>
     <string name="sign_in">Sign in</string>
+    <string name="access_needed_msg">You need to grant access to your Classroom in order to use this app</string>
+    <string name="login_error">Podczas logowania nastąpił błąd. Spróbuj ponownie</string>
 </resources>

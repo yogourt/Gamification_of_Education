@@ -1,5 +1,7 @@
 package com.blogspot.android_czy_java.apps.mgr.main.classroom_api
 
+import android.content.SharedPreferences
+import com.blogspot.android_czy_java.apps.mgr.main.PreferencesKeys
 import com.blogspot.android_czy_java.apps.mgr.main.db.dao.CoursesDao
 import com.blogspot.android_czy_java.apps.mgr.main.db.model.CourseModel
 import com.blogspot.android_czy_java.apps.mgr.main.db.model.TaskModel
@@ -9,18 +11,28 @@ import com.google.api.services.classroom.model.CourseWork
 import javax.inject.Inject
 
 
-class FetchCoursesDataOperation @Inject constructor(private val coursesDao: CoursesDao) {
+class FetchCoursesDataUseCase @Inject constructor(private val coursesDao: CoursesDao,
+                                                  private val prefs: SharedPreferences) {
 
     fun execute() {
         Thread(Runnable {
 
-            val service = ClassroomService.getInstance()
-            val response = service.Courses().list().execute()
-            val courses = response.courses
+            val accessToken = prefs.getString(PreferencesKeys.KEY_ACCESS_TOKEN, null)
 
-            courses?.insertCourses(service)
+            if(accessToken != null) {
+                val service = ClassroomService.getInstance(accessToken)
+                val response = service.Courses().list().execute()
+                val courses = response.courses
+
+                saveFetchTime()
+                courses?.insertCourses(service)
+            }
 
         }).start()
+    }
+
+    private fun saveFetchTime() {
+        prefs.edit().putLong(PreferencesKeys.KEY_LAST_CLASSROOM_API_FETCH, System.currentTimeMillis()).apply()
     }
 
     private fun List<Course>.insertCourses(service: Classroom) {
@@ -51,7 +63,7 @@ class FetchCoursesDataOperation @Inject constructor(private val coursesDao: Cour
                         work.courseId,
                         work.title,
                         work.description,
-                        submissions != null
+                        !submissions.isEmpty()
                     )
                 )
         }

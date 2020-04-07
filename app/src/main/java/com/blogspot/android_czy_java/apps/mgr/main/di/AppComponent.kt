@@ -2,7 +2,7 @@ package com.blogspot.android_czy_java.apps.mgr.main.di
 
 import android.content.Context
 import com.blogspot.android_czy_java.apps.mgr.main.MyApplication
-import com.blogspot.android_czy_java.apps.mgr.main.di.view.MainActivityModule
+import com.blogspot.android_czy_java.apps.mgr.main.di.view.ActivityModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.support.AndroidSupportInjectionModule
@@ -12,7 +12,7 @@ import javax.inject.Singleton
     modules = [
         AndroidSupportInjectionModule::class,
         DbModule::class,
-        MainActivityModule::class
+        ActivityModule::class
     ]
 )
 @Singleton

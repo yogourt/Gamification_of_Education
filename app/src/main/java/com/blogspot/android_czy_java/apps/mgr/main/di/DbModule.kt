@@ -16,4 +16,9 @@ class DbModule {
     @Provides
     fun provideCourseDao(db: AppDatabase) = db.coursesDao
 
+    @Provides
+    fun providePreferences(context: Context) =
+        context.getSharedPreferences("Gamification_Of_Education_Prefs", Context.MODE_PRIVATE)
+
+
 }

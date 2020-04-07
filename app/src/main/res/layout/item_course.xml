@@ -4,7 +4,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_course_height" app:cardCornerRadius="4dp"
-        app:cardBackgroundColor="@color/primaryLightColor"
+        app:cardBackgroundColor="@color/white"
         android:layout_margin="@dimen/activity_margin">
 
     <TextView

@@ -9,7 +9,9 @@
                  android:theme="@style/AppTheme"
                  android:name=".main.MyApplication">
 
-        <activity android:name=".main.MainActivity">
+        <activity android:name=".main.MainActivity"/>
+
+        <activity android:name=".main.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
