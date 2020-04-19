@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.blogspot.android_czy_java.apps.mgr.R
+import com.blogspot.android_czy_java.apps.mgr.main.chat.ChatFragment
 import com.blogspot.android_czy_java.apps.mgr.main.db.model.TaskModel
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_course.view.*
@@ -23,6 +24,7 @@ class CourseFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_course, container, false)
 
+        view.fab_chat.setOnClickListener { openChatFragment() }
         presenter.getCourseTasks().observe(this, Observer { prepareLayout(view.list_tasks, it) })
         return view
     }
@@ -43,6 +45,13 @@ class CourseFragment : Fragment() {
         }
     }
 
+
+    private fun openChatFragment() {
+        fragmentManager?.beginTransaction()
+            ?.replace(R.id.fragment_container, ChatFragment.getInstance(presenter.courseId))
+            ?.addToBackStack(null)
+            ?.commit()
+    }
 
     companion object {
 

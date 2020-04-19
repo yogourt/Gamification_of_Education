@@ -10,6 +10,7 @@ import com.blogspot.android_czy_java.apps.mgr.main.MainActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_login.*
 import javax.inject.Inject
@@ -68,11 +69,12 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
 
     private fun logOutAndloginUser() {
         signOut()
+        makeSnackbar(R.string.login_error)
         loginUserAndFetchData()
     }
 
     private fun signOut() {
-       signInClient.signOut()
+        signInClient.signOut()
     }
 
     private fun startMainActivity() {
@@ -84,16 +86,33 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
             if (!userHasPermissions()) {
                 makeSnackbar(R.string.access_needed_msg)
             } else {
-                val authCode = GoogleSignIn.getSignedInAccountFromIntent(data).result?.serverAuthCode
+                val user = GoogleSignIn.getSignedInAccountFromIntent(data).result
+                val authCode = user?.serverAuthCode
                 if (authCode != null) {
                     saveAuthCodeAndProcess(authCode)
+                    user.idToken?.let { authenticateFirebase(it) }
                 } else {
-                    makeSnackbar(R.string.login_error)
                     logOutAndloginUser()
                 }
             }
             super.onActivityResult(requestCode, resultCode, data)
         }
+    }
+
+    private fun authenticateFirebase(idToken: String) {
+        val credential = presenter.getCredentialForFirebase(idToken)
+        val auth = FirebaseAuth.getInstance()
+        auth.signInWithCredential(credential)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful && auth.currentUser != null) {
+                    auth.currentUser?.let {
+                        presenter.saveUser(it)
+                    }
+                } else {
+                    logOutAndloginUser()
+                }
+            }
+
     }
 
     private fun makeSnackbar(msg: Int) {

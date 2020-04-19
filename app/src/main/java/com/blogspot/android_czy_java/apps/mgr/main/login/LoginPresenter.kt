@@ -8,9 +8,12 @@ import com.blogspot.android_czy_java.apps.mgr.R
 import com.blogspot.android_czy_java.apps.mgr.main.PreferencesKeys
 import com.blogspot.android_czy_java.apps.mgr.main.classroom_api.FetchCoursesDataUseCase
 import com.blogspot.android_czy_java.apps.mgr.main.login.usecase.GetAccessToken
+import com.blogspot.android_czy_java.apps.mgr.main.login.usecase.SaveUserFromFirebase
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.Scope
 import com.google.api.services.classroom.ClassroomScopes
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.GoogleAuthProvider
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -20,7 +23,8 @@ import javax.inject.Inject
 class LoginPresenter @Inject constructor(
     private val getAccessToken: GetAccessToken,
     private val fetchCoursesDataUseCase: FetchCoursesDataUseCase,
-    private val preferences: SharedPreferences
+    private val preferences: SharedPreferences,
+    private val saveUserFromFirebase: SaveUserFromFirebase
 ) {
 
 
@@ -61,11 +65,18 @@ class LoginPresenter @Inject constructor(
         fetchFromClassroomApi()
     }
 
+    fun getCredentialForFirebase(idToken: String) = GoogleAuthProvider.getCredential(idToken, null)
+
+    fun saveUser(user: FirebaseUser) {
+        saveUserFromFirebase.execute(user, true)
+    }
+
     val fetchState = MutableLiveData<Boolean>()
 
     val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
         .requestScopes(scopes[0], scopes[1])
         .requestServerAuthCode("413800448352-653qfbgp9h72jajpo7a08puhrv2ml28f.apps.googleusercontent.com")
+        .requestIdToken("413800448352-653qfbgp9h72jajpo7a08puhrv2ml28f.apps.googleusercontent.com")
         .build()
 }
 
