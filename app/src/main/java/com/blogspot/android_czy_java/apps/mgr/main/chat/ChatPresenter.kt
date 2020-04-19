@@ -30,7 +30,16 @@ class ChatPresenter @Inject constructor(
             sendMessage.execute(MessageWithCourseId(message, courseId))
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe()
+                .subscribe { _ ->
+                    addPointForChatMessage()
+                }
         }
+    }
+
+    private fun addPointForChatMessage() {
+        Thread {
+            val points = coursesDao.getPointsValue(courseId).plus(1)
+            coursesDao.setPoints(courseId, points)
+        }.start()
     }
 }

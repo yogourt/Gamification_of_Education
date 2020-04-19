@@ -1,55 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             xmlns:app="http://schemas.android.com/apk/res-auto"
-             android:layout_height="match_parent"
-             android:layout_width="match_parent">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/activity_margin">
+            android:layout_margin="@dimen/activity_margin"
+            android:orientation="vertical">
 
         <TextView
                 android:id="@+id/title"
-                tools:text="Podstawy programowania"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_margin"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Overline"
-                android:textSize="16sp"
                 android:textColor="@color/secondaryColor"
-                android:layout_marginTop="@dimen/activity_margin"
-        />
+                android:textSize="16sp"
+                tools:text="Podstawy programowania" />
 
         <ProgressBar
+                android:id="@+id/progress_bar"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:progress="25"
-                style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
+                android:progress="25" />
 
         <TextView
+                android:id="@+id/progress_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="ukończono 25%"
                 android:layout_gravity="end"
-                android:textSize="@dimen/small_text_size"/>
+                android:textSize="@dimen/small_text_size"
+                tools:text="25%" />
 
-        <LinearLayout android:id="@+id/team"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:orientation="vertical">
 
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/activity_points_label"
+                    android:textSize="@dimen/small_text_size" />
+
+            <TextView
+                    android:id="@+id/points"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="10"
+                    android:textColor="@color/primaryColor"
+                    android:textSize="20sp" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/list_tasks"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:listitem="@layout/item_course_task"
-                tools:itemCount="3"/>
+                tools:itemCount="3"
+                tools:listitem="@layout/item_course_task" />
 
 
     </LinearLayout>
@@ -58,9 +74,9 @@
             android:id="@+id/fab_chat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:fabSize="auto"
-            android:src="@drawable/ic_chat"
+            android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/fab_margin"
-            android:layout_gravity="bottom|end"/>
+            android:src="@drawable/ic_chat"
+            app:fabSize="auto" />
 
 </FrameLayout>

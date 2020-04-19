@@ -69,7 +69,6 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
 
     private fun logOutAndloginUser() {
         signOut()
-        makeSnackbar(R.string.login_error)
         loginUserAndFetchData()
     }
 
@@ -85,6 +84,7 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
         if (requestCode == RC_SIGN_IN) {
             if (!userHasPermissions()) {
                 makeSnackbar(R.string.access_needed_msg)
+                logOutAndloginUser()
             } else {
                 val user = GoogleSignIn.getSignedInAccountFromIntent(data).result
                 val authCode = user?.serverAuthCode
@@ -92,6 +92,7 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
                     saveAuthCodeAndProcess(authCode)
                     user.idToken?.let { authenticateFirebase(it) }
                 } else {
+                    makeSnackbar(R.string.login_error)
                     logOutAndloginUser()
                 }
             }

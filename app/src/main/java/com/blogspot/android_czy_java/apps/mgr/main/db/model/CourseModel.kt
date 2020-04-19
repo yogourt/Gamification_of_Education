@@ -7,5 +7,6 @@ import androidx.room.PrimaryKey
 class CourseModel(
     @PrimaryKey
     val id: String,
-    val title: String
+    val title: String,
+    val activityPoints: Int
 )

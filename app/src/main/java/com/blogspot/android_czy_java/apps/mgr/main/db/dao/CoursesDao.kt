@@ -1,10 +1,7 @@
 package com.blogspot.android_czy_java.apps.mgr.main.db.dao
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.blogspot.android_czy_java.apps.mgr.main.db.model.CourseModel
 import com.blogspot.android_czy_java.apps.mgr.main.db.model.MessageModel
 import com.blogspot.android_czy_java.apps.mgr.main.db.model.MessageWithAuthorModel
@@ -13,7 +10,7 @@ import com.blogspot.android_czy_java.apps.mgr.main.db.model.TaskModel
 @Dao
 interface CoursesDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
     fun insertCourse(course: CourseModel)
 
     @Query("SELECT * FROM course")
@@ -33,5 +30,17 @@ interface CoursesDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertChatMessage(message: MessageModel)
+
+    @Query("SELECT title FROM course WHERE id=:courseId")
+    fun getCourseTitle(courseId: String): LiveData<String>
+
+    @Query("UPDATE course SET activityPoints=:points WHERE id=:courseId")
+    fun setPoints(courseId: String, points: Int)
+
+    @Query("SELECT activityPoints FROM course WHERE id=:courseId")
+    fun getPoints(courseId: String): LiveData<Int>
+
+    @Query("SELECT activityPoints FROM course WHERE id=:courseId")
+    fun getPointsValue(courseId: String): Int
 
 }

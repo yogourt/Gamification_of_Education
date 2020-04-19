@@ -19,7 +19,7 @@ import com.blogspot.android_czy_java.apps.mgr.main.db.model.UserModel
         MessageModel::class,
         UserModel::class
     ],
-    version = 7,
+    version = 8,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {

@@ -38,7 +38,7 @@ class FetchCoursesDataUseCase @Inject constructor(private val coursesDao: Course
     private fun List<Course>.insertCourses(service: Classroom) {
         for (course in this) {
             Thread(Runnable {
-                coursesDao.insertCourse(CourseModel(course.id, course.name))
+                coursesDao.insertCourse(CourseModel(course.id, course.name, 0))
                 val response = service.courses().courseWork().list(course.id).execute()
                 val courseWorks = response.courseWork
 
@@ -63,7 +63,7 @@ class FetchCoursesDataUseCase @Inject constructor(private val coursesDao: Course
                         work.courseId,
                         work.title,
                         work.description,
-                        !submissions.isEmpty()
+                        submissions.any { !(it["state"]?.equals("CREATED") ?: true) }
                     )
                 )
         }

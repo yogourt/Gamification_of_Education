@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,11 +23,17 @@ class CourseFragment : Fragment() {
     @Inject
     lateinit var presenter: CourseFragmentPresenter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val view = inflater.inflate(R.layout.fragment_course, container, false)
 
         view.fab_chat.setOnClickListener { openChatFragment() }
-        presenter.getCourseTasks().observe(this, Observer { prepareLayout(view.list_tasks, it) })
+        presenter.getCourseTasks().observe(this, Observer { prepareLayout(view, it) })
+        setTitle(view.title)
+        setActivityPoints(view.points)
         return view
     }
 
@@ -37,11 +45,29 @@ class CourseFragment : Fragment() {
         }
     }
 
-    private fun prepareLayout(tasksRV: RecyclerView, taskList: List<TaskModel>) {
+    private fun prepareLayout(view: View, taskList: List<TaskModel>) {
 
-        tasksRV.apply {
+        if (taskList.isNotEmpty())
+            setProgress(view, taskList.count { it.completed } * 100 / taskList.size)
+
+        view.list_tasks.apply {
             adapter = TasksAdaper(taskList)
             layoutManager = LinearLayoutManager(this.context, RecyclerView.VERTICAL, false)
+        }
+    }
+
+    private fun setTitle(title: TextView) {
+        presenter.getCourseTitle().observe(this, Observer { title.text = it })
+    }
+
+    private fun setActivityPoints(points: TextView) {
+        presenter.getActivityPoints().observe(this, Observer { points.text = it.toString() })
+    }
+
+    private fun setProgress(view: View, progress: Int) {
+        view.apply {
+            progress_bar.progress = progress
+            progress_text.text = "$progress%"
         }
     }
 
