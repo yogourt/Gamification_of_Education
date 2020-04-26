@@ -15,30 +15,34 @@ class GetAccessTokenFromRefreshToken @Inject constructor(private val prefs: Shar
 
         val refreshToken = prefs.getString(PreferencesKeys.KEY_REFRESH_TOKEN, null)
 
-        if(refreshToken == null) {
+        if (refreshToken == null) {
             it.onError(Exception())
-        }
-        try {
-            val tokenResponse = RefreshTokenRequest(
-                NetHttpTransport(),
-                JacksonFactory.getDefaultInstance(),
-                GenericUrl("https://oauth2.googleapis.com/token"),
-                refreshToken
-            ).execute()
+        } else {
+            try {
+                val tokenResponse = RefreshTokenRequest(
+                    NetHttpTransport(),
+                    JacksonFactory.getDefaultInstance(),
+                    GenericUrl("https://oauth2.googleapis.com/token"),
+                    refreshToken
+                ).execute()
 
-            prefs.edit()
-                .putLong(
-                    PreferencesKeys.KEY_ACCESS_TOKEN_EXPIRATION_TIME_IN_MILLIS,
-                    (System.currentTimeMillis()  + tokenResponse.expiresInSeconds * 1000)
-                )
-                .putString(PreferencesKeys.KEY_ACCESS_TOKEN, tokenResponse.accessToken)
-                .putString(PreferencesKeys.KEY_REFRESH_TOKEN, tokenResponse.refreshToken)
-                .apply()
+                prefs.edit()
+                    .putLong(
+                        PreferencesKeys.KEY_ACCESS_TOKEN_EXPIRATION_TIME_IN_MILLIS,
+                        (System.currentTimeMillis() + tokenResponse.expiresInSeconds * 1000)
+                    )
+                    .putString(PreferencesKeys.KEY_ACCESS_TOKEN, tokenResponse.accessToken)
+                    .apply()
 
-            it.onSuccess(true)
+                tokenResponse.refreshToken?.let {
+                    prefs.edit().putString(PreferencesKeys.KEY_REFRESH_TOKEN, it).apply()
+                }
 
-        }catch (e: Exception) {
-            it.onError(e)
+                it.onSuccess(true)
+
+            } catch (e: Exception) {
+                it.onError(e)
+            }
         }
     }
 

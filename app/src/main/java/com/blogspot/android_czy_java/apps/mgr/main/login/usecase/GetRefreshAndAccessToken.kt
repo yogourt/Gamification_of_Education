@@ -2,7 +2,8 @@ package com.blogspot.android_czy_java.apps.mgr.main.login.usecase
 
 import android.content.SharedPreferences
 import com.blogspot.android_czy_java.apps.mgr.main.PreferencesKeys
-import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeTokenRequest
+import com.blogspot.android_czy_java.apps.mgr.main.login.LoginPresenter
+import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow
 import com.google.api.client.http.javanet.NetHttpTransport
 import com.google.api.client.json.jackson2.JacksonFactory
 import io.reactivex.rxjava3.core.Single
@@ -18,16 +19,14 @@ class GetRefreshAndAccessToken @Inject constructor(private val prefs: SharedPref
                 it.onError(Exception())
             }
             try {
-                val tokenResponse = GoogleAuthorizationCodeTokenRequest(
-                    NetHttpTransport(),
+                val authorizationFlow = GoogleAuthorizationCodeFlow.Builder( NetHttpTransport(),
                     JacksonFactory.getDefaultInstance(),
-                    "https://oauth2.googleapis.com/token",
                     "413800448352-653qfbgp9h72jajpo7a08puhrv2ml28f.apps.googleusercontent.com",
-                    "ZaC-tpfF1qRb_57kRGQF2sV6",
-                    authCode,
-                    ""
-                )
-                    .execute()
+                    "ZaC-tpfF1qRb_57kRGQF2sV6", LoginPresenter.scopes.map { it.toString() })
+                    .setAccessType("offline").build()
+
+                val tokenRequest = authorizationFlow.newTokenRequest(authCode)
+                val tokenResponse = tokenRequest.execute()
 
                 prefs.edit()
                     .putLong(
@@ -35,8 +34,11 @@ class GetRefreshAndAccessToken @Inject constructor(private val prefs: SharedPref
                         (System.currentTimeMillis() + tokenResponse.expiresInSeconds * 1000)
                     )
                     .putString(PreferencesKeys.KEY_ACCESS_TOKEN, tokenResponse.accessToken)
-                    .putString(PreferencesKeys.KEY_REFRESH_TOKEN, tokenResponse.refreshToken)
                     .apply()
+
+                tokenResponse.refreshToken?.let {
+                    prefs.edit().putString(PreferencesKeys.KEY_REFRESH_TOKEN, it).apply()
+                }
 
                 it.onSuccess(true)
             } catch (e: Exception) {
