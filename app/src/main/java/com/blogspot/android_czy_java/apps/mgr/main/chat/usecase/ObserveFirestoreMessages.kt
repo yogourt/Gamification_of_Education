@@ -4,6 +4,7 @@ import com.blogspot.android_czy_java.apps.mgr.main.db.dao.CoursesDao
 import com.blogspot.android_czy_java.apps.mgr.main.db.model.MessageModel
 import com.blogspot.android_czy_java.apps.mgr.main.firebase.FirestoreKeys
 import com.google.api.ChangeType
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QueryDocumentSnapshot
@@ -34,7 +35,21 @@ class ObserveFirestoreMessages @Inject constructor(
                 }
             }
             coursesDao.insertChatMessages(messagesToAdd)
+            addPointsForUserMessages(messagesToAdd)
         }.start()
+    }
+
+    private fun addPointsForUserMessages(messagesToAdd: MutableList<MessageModel>) {
+        if (messagesToAdd.isNotEmpty()) {
+            val points =
+                messagesToAdd.filter {
+                    it.authorId == FirebaseAuth.getInstance().currentUser?.uid
+                }
+                    .count()
+            if (points != 0) {
+                coursesDao.setPoints(messagesToAdd[0].courseId, points)
+            }
+        }
     }
 
     private fun convertToMessage(snapshot: QueryDocumentSnapshot): MessageModel {

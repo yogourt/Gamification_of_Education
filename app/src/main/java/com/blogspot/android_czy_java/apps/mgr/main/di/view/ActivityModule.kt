@@ -5,6 +5,7 @@ import com.blogspot.android_czy_java.apps.mgr.main.chat.ChatFragment
 import com.blogspot.android_czy_java.apps.mgr.main.course.CourseFragment
 import com.blogspot.android_czy_java.apps.mgr.main.courses.CoursesFragment
 import com.blogspot.android_czy_java.apps.mgr.main.login.LoginActivity
+import com.blogspot.android_czy_java.apps.mgr.main.profile.ProfileFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -22,6 +23,9 @@ abstract class ActivityModule {
 
     @ContributesAndroidInjector
     abstract fun bindChatFragment(): ChatFragment
+
+    @ContributesAndroidInjector
+    abstract fun bindProfileFragment(): ProfileFragment
 
     @ContributesAndroidInjector
     abstract fun bindLoginActivity(): LoginActivity

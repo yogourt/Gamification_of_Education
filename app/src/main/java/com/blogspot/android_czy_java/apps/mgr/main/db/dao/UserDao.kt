@@ -1,5 +1,6 @@
 package com.blogspot.android_czy_java.apps.mgr.main.db.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -14,4 +15,10 @@ interface UserDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertUser(user: UserModel)
+
+    @Query("SELECT SUM(activityPoints) FROM course")
+    abstract fun getCurrentUserPoints(): LiveData<Int>
+
+    @Query("SELECT * FROM users WHERE id=:userId")
+    abstract fun getCurrentUser(userId: String?): LiveData<UserModel>
 }
