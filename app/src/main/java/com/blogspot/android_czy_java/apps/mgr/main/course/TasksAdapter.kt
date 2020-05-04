@@ -10,10 +10,17 @@ import com.blogspot.android_czy_java.apps.mgr.R
 import com.blogspot.android_czy_java.apps.mgr.main.db.model.TaskModel
 import kotlinx.android.synthetic.main.item_course_task.view.*
 
-class TasksAdaper(private val taskList: List<TaskModel>) : RecyclerView.Adapter<TasksAdaper.TaskViewHolder>() {
+class TasksAdapter(private val taskList: List<TaskModel>) :
+    RecyclerView.Adapter<TasksAdapter.TaskViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
-        return TaskViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_course_task, parent, false))
+        return TaskViewHolder(
+            LayoutInflater.from(parent.context).inflate(
+                R.layout.item_course_task,
+                parent,
+                false
+            )
+        )
     }
 
     override fun getItemCount() = taskList.size
@@ -22,7 +29,9 @@ class TasksAdaper(private val taskList: List<TaskModel>) : RecyclerView.Adapter<
         holder.apply {
             val task = taskList[position]
             title.text = task.title
-            description.text = task.description
+            task.description?.let {
+                description.text = if (it.length > 250) "${it.substring(0, 200)}…" else it
+            }
             submitted.isChecked = task.completed
         }
     }

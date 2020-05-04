@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -51,7 +50,7 @@ class CourseFragment : Fragment() {
             setProgress(view, taskList.count { it.completed } * 100 / taskList.size)
 
         view.list_tasks.apply {
-            adapter = TasksAdaper(taskList)
+            adapter = TasksAdapter(taskList)
             layoutManager = LinearLayoutManager(this.context, RecyclerView.VERTICAL, false)
         }
     }

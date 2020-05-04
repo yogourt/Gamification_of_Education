@@ -2,7 +2,6 @@
 
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/activity_margin">
@@ -29,6 +28,7 @@
                 android:id="@+id/points"
                 android:layout_width="wrap_content"
                 android:layout_height="19dp"
+                android:maxWidth="120dp"
                 android:textColor="@color/secondaryColor"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -40,6 +40,7 @@
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:maxWidth="120dp"
                 android:textColor="@color/secondaryDarkColor"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/points"

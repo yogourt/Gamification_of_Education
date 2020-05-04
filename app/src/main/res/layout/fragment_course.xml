@@ -28,15 +28,15 @@
                 style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:progress="25" />
+                android:indeterminate="false"
+                android:progress="0" />
 
         <TextView
                 android:id="@+id/progress_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:textSize="@dimen/small_text_size"
-                tools:text="25%" />
+                android:textSize="@dimen/small_text_size" />
 
 
         <LinearLayout
@@ -55,9 +55,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    android:text="10"
                     android:textColor="@color/primaryColor"
-                    android:textSize="@dimen/large_text_size"  />
+                    android:textSize="@dimen/large_text_size" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
