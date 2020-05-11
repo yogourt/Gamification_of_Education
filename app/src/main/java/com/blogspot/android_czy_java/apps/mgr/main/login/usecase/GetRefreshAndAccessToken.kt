@@ -19,13 +19,14 @@ class GetRefreshAndAccessToken @Inject constructor(private val prefs: SharedPref
                 it.onError(Exception())
             }
             try {
-                val authorizationFlow = GoogleAuthorizationCodeFlow.Builder( NetHttpTransport(),
+                val authorizationFlow = GoogleAuthorizationCodeFlow.Builder(NetHttpTransport(),
                     JacksonFactory.getDefaultInstance(),
                     "413800448352-653qfbgp9h72jajpo7a08puhrv2ml28f.apps.googleusercontent.com",
                     "ZaC-tpfF1qRb_57kRGQF2sV6", LoginPresenter.scopes.map { it.toString() })
-                    .setAccessType("offline").build()
+                    .build()
 
                 val tokenRequest = authorizationFlow.newTokenRequest(authCode)
+                tokenRequest["access_type"] = "offline"
                 val tokenResponse = tokenRequest.execute()
 
                 prefs.edit()

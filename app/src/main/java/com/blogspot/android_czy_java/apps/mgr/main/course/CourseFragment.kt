@@ -13,11 +13,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.blogspot.android_czy_java.apps.mgr.R
 import com.blogspot.android_czy_java.apps.mgr.main.chat.ChatFragment
 import com.blogspot.android_czy_java.apps.mgr.main.db.model.TaskModel
+import com.blogspot.android_czy_java.apps.mgr.main.db.model.TaskWithCommentsModel
+import com.blogspot.android_czy_java.apps.mgr.main.task.TaskFragment
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_course.view.*
 import javax.inject.Inject
 
-class CourseFragment : Fragment() {
+class CourseFragment : Fragment(), TasksAdapter.TaskAdapterCallback {
 
     @Inject
     lateinit var presenter: CourseFragmentPresenter
@@ -50,7 +52,7 @@ class CourseFragment : Fragment() {
             setProgress(view, taskList.count { it.completed } * 100 / taskList.size)
 
         view.list_tasks.apply {
-            adapter = TasksAdapter(taskList)
+            adapter = TasksAdapter(taskList, this@CourseFragment)
             layoutManager = LinearLayoutManager(this.context, RecyclerView.VERTICAL, false)
         }
     }
@@ -74,6 +76,13 @@ class CourseFragment : Fragment() {
     private fun openChatFragment() {
         fragmentManager?.beginTransaction()
             ?.replace(R.id.fragment_container, ChatFragment.getInstance(presenter.courseId))
+            ?.addToBackStack(null)
+            ?.commit()
+    }
+
+    override fun openTask(taskId: String) {
+        fragmentManager?.beginTransaction()
+            ?.replace(R.id.fragment_container, TaskFragment.getInstance(taskId))
             ?.addToBackStack(null)
             ?.commit()
     }

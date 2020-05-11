@@ -2,7 +2,6 @@ package com.blogspot.android_czy_java.apps.mgr.main.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.blogspot.android_czy_java.apps.mgr.R
@@ -58,7 +57,7 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
             if (success) {
                 startMainActivity()
             } else {
-                logOutAndloginUser()
+                logOutAndLoginUser()
             }
         })
     }
@@ -67,7 +66,7 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
         startActivityForResult(signInClient.signInIntent, RC_SIGN_IN)
     }
 
-    private fun logOutAndloginUser() {
+    private fun logOutAndLoginUser() {
         signOut()
         loginUserAndFetchData()
     }
@@ -84,7 +83,7 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
         if (requestCode == RC_SIGN_IN) {
             if (!userHasPermissions()) {
                 makeSnackbar(R.string.access_needed_msg)
-                logOutAndloginUser()
+                logOutAndLoginUser()
             } else {
                 val user = GoogleSignIn.getSignedInAccountFromIntent(data).result
                 val authCode = user?.serverAuthCode
@@ -93,7 +92,7 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
                     user.idToken?.let { authenticateFirebase(it) }
                 } else {
                     makeSnackbar(R.string.login_error)
-                    logOutAndloginUser()
+                    logOutAndLoginUser()
                 }
             }
             super.onActivityResult(requestCode, resultCode, data)
@@ -110,7 +109,7 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
                         presenter.saveUser(it)
                     }
                 } else {
-                    logOutAndloginUser()
+                    logOutAndLoginUser()
                 }
             }
 

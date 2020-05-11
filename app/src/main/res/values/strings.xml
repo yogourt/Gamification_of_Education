@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">mgr</string>
+    <string name="app_name">Better Education</string>
     <string name="menu_courses">Twoje kursy</string>
     <string name="menu_profile">Profil</string>
     <string name="menu_leaderboards">Statystyki</string>
@@ -10,4 +10,8 @@
     <string name="access_needed_msg">W celu korzystania z aplikacji, musisz udostępnić dane z Google Classroom</string>
     <string name="login_error">Podczas logowania nastąpił błąd. Spróbuj ponownie</string>
     <string name="activity_points_label">Exp:</string>
+    <string name="label_expand">Rozwiń</string>
+    <string name="label_comment">Skomentuj</string>
+    <string name="label_collapse">Zwiń</string>
+    <string name="link_label">Link:</string>
 </resources>

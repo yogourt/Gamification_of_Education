@@ -6,6 +6,7 @@ import com.blogspot.android_czy_java.apps.mgr.main.course.CourseFragment
 import com.blogspot.android_czy_java.apps.mgr.main.courses.CoursesFragment
 import com.blogspot.android_czy_java.apps.mgr.main.login.LoginActivity
 import com.blogspot.android_czy_java.apps.mgr.main.profile.ProfileFragment
+import com.blogspot.android_czy_java.apps.mgr.main.task.TaskFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -29,5 +30,8 @@ abstract class ActivityModule {
 
     @ContributesAndroidInjector
     abstract fun bindLoginActivity(): LoginActivity
+
+    @ContributesAndroidInjector
+    abstract fun bindTaskFragment(): TaskFragment
 
 }

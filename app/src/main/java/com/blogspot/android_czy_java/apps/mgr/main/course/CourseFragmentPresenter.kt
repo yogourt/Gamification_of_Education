@@ -3,6 +3,7 @@ package com.blogspot.android_czy_java.apps.mgr.main.course
 import androidx.lifecycle.LiveData
 import com.blogspot.android_czy_java.apps.mgr.main.db.dao.CoursesDao
 import com.blogspot.android_czy_java.apps.mgr.main.db.model.TaskModel
+import com.blogspot.android_czy_java.apps.mgr.main.db.model.TaskWithCommentsModel
 import javax.inject.Inject
 
 class CourseFragmentPresenter @Inject constructor(private val courseDao: CoursesDao) {

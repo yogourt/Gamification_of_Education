@@ -1,8 +1,6 @@
 package com.blogspot.android_czy_java.apps.mgr.main.db.model
 
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
+import androidx.room.*
 
 @Entity(
     tableName = "tasks",
@@ -22,4 +20,11 @@ class TaskModel(
     val title: String?,
     val description: String?,
     val completed: Boolean
+)
+
+class TaskWithCommentsModel(
+    @Embedded
+    val task: TaskModel,
+    @Relation(parentColumn = "id", entityColumn = "taskId", entity = TaskCommentModel::class)
+    val comments: List<TaskCommentWithAuthorModel>
 )

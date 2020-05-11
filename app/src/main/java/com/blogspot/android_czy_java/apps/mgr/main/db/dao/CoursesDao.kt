@@ -2,10 +2,7 @@ package com.blogspot.android_czy_java.apps.mgr.main.db.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.blogspot.android_czy_java.apps.mgr.main.db.model.CourseModel
-import com.blogspot.android_czy_java.apps.mgr.main.db.model.MessageModel
-import com.blogspot.android_czy_java.apps.mgr.main.db.model.MessageWithAuthorModel
-import com.blogspot.android_czy_java.apps.mgr.main.db.model.TaskModel
+import com.blogspot.android_czy_java.apps.mgr.main.db.model.*
 
 @Dao
 interface CoursesDao {
@@ -21,6 +18,9 @@ interface CoursesDao {
 
     @Query("SELECT * FROM tasks WHERE courseId=:courseId")
     fun getCourseTasksLiveData(courseId: String): LiveData<List<TaskModel>>
+
+    @Query("SELECT * FROM tasks WHERE id=:taskId")
+    fun getCourseTaskLiveData(taskId: String): LiveData<TaskWithCommentsModel>
 
     @Query("SELECT * FROM messages WHERE courseId=:courseId ORDER BY timestamp")
     fun getCourseChatLiveData(courseId: String): LiveData<List<MessageWithAuthorModel>>

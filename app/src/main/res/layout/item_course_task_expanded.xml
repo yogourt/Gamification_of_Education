@@ -40,20 +40,14 @@
         </LinearLayout>
 
         <LinearLayout
+                android:id="@+id/task_comments"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="end"
-                android:orientation="horizontal">
+                android:orientation="vertical" />
 
-            <com.google.android.material.button.MaterialButton
-                    android:id="@+id/button_expand"
-                    style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/label_expand"
-                    android:textSize="@dimen/small_text_size" />
-
-        </LinearLayout>
+        <include
+                android:id="@+id/new_comment"
+                layout="@layout/item_task_comment_new" />
 
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>
