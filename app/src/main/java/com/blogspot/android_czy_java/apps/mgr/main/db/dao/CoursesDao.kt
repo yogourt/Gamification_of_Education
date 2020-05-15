@@ -43,4 +43,7 @@ interface CoursesDao {
     @Query("SELECT activityPoints FROM course WHERE id=:courseId")
     fun getPointsValue(courseId: String): Int
 
+    @Insert(onConflict = OnConflictStrategy.ABORT)
+    fun insertTaskComment(comment: TaskCommentModel)
+
 }

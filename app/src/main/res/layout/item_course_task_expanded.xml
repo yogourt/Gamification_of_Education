@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/card_margin">
+        android:layout_height="match_parent">
 
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="@dimen/card_padding">
+            android:padding="@dimen/activity_margin">
 
         <TextView
                 android:id="@+id/task_title"
@@ -42,12 +41,14 @@
         <LinearLayout
                 android:id="@+id/task_comments"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" />
+                android:layout_height="0dp"
+                android:layout_weight="100"
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/activity_margin"/>
 
         <include
-                android:id="@+id/new_comment"
+                android:id="@+id/new_comment_layout"
                 layout="@layout/item_task_comment_new" />
 
     </LinearLayout>
-</com.google.android.material.card.MaterialCardView>
+</ScrollView>

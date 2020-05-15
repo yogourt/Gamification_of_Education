@@ -47,7 +47,6 @@ class TasksAdapter(private val taskList: List<TaskModel>, private val callback: 
         val title: TextView = itemView.task_title
         val description: TextView = itemView.task_desc
         val submitted: CheckBox = itemView.submitted
-        val expandButton: Button = itemView.button_expand
 
 
     }

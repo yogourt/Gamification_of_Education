@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_margin="4dp"
+        app:cardBackgroundColor="@color/primaryLightColor"
+        app:cardCornerRadius="4dp">
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/grey"
         android:orientation="vertical">
-
-    <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/secondaryLightColor" />
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -23,33 +25,36 @@
         <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="4dp"
+                android:layout_marginStart="8dp"
                 android:gravity="center"
                 android:orientation="vertical">
 
-            <TextView
+            <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="+"
-                    android:textStyle="bold" />
+                    android:src="@drawable/ic_arrow_upward" />
 
-            <TextView
+            <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="-"
-                    android:textStyle="bold" />
+                    android:src="@drawable/ic_arrow_downward" />
         </LinearLayout>
 
         <TextView
+                android:id="@+id/points"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:textColor="@color/secondaryColor"
+                android:layout_marginStart="8dp"
+                android:textColor="@color/secondaryLightColor"
                 android:textSize="@dimen/large_text_size" />
 
         <TextView
+                android:id="@+id/message"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white"
                 android:layout_weight="100" />
     </LinearLayout>
 </LinearLayout>
+</androidx.cardview.widget.CardView>
