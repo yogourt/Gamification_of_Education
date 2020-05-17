@@ -32,7 +32,7 @@ class ObserveFirestoreComments @Inject constructor(
             val commentsToAdd = mutableListOf<TaskCommentModel>()
             for (change in snapshot.documentChanges) {
                 if (change.type == DocumentChange.Type.MODIFIED) {
-                    updateTaskPoints(change.document)
+                    updateCommentPoints(change.document)
                 } else if (change.type == DocumentChange.Type.ADDED) {
                     commentsToAdd.add(convertToComment(change.document))
                 }
@@ -42,7 +42,7 @@ class ObserveFirestoreComments @Inject constructor(
         }.start()
     }
 
-    private fun updateTaskPoints(snapshot: QueryDocumentSnapshot) {
+    private fun updateCommentPoints(snapshot: QueryDocumentSnapshot) {
         val commentHashMap = snapshot.data
         val commentId = snapshot.id
         val points = commentHashMap[FirestoreKeys.POINTS] as Long

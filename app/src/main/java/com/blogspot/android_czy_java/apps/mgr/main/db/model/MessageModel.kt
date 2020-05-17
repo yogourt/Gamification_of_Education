@@ -19,6 +19,7 @@ class MessageModel(
     val courseId: String,
     val message: String,
     val authorId: String,
+    val points:Long,
     val timestamp: Long
 )
 

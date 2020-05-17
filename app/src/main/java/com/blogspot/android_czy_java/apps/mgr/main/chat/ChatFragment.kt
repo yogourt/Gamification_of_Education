@@ -15,7 +15,7 @@ import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_chat.view.*
 import javax.inject.Inject
 
-class ChatFragment : Fragment() {
+class ChatFragment : Fragment(), ChatAdapter.ChatAdapterCallback {
 
     @Inject
     lateinit var presenter: ChatPresenter
@@ -29,7 +29,7 @@ class ChatFragment : Fragment() {
         }
 
         view.button_send.setOnClickListener { tryToSentMessage(view.new_message.text?.toString()) }
-        return view;
+        return view
     }
 
     private fun tryToSentMessage(message: String?) {
@@ -43,9 +43,13 @@ class ChatFragment : Fragment() {
 
     private fun prepareLayout(chat: RecyclerView, messages: List<MessageWithAuthorModel>) {
         chat.apply {
-            adapter = ChatAdapter(messages)
+            adapter = ChatAdapter(messages, this@ChatFragment)
             layoutManager = LinearLayoutManager(this.context, RecyclerView.VERTICAL, false)
         }
+    }
+
+    override fun upvoteMessage(messageId: String) {
+        presenter.upvoteMessage(messageId)
     }
 
     companion object {

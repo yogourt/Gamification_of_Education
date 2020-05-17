@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.blogspot.android_czy_java.apps.mgr.main.chat.usecase.MessageWithCourseId
 import com.blogspot.android_czy_java.apps.mgr.main.chat.usecase.ObserveFirestoreMessages
 import com.blogspot.android_czy_java.apps.mgr.main.chat.usecase.SendChatMessage
+import com.blogspot.android_czy_java.apps.mgr.main.chat.usecase.Vote
 import com.blogspot.android_czy_java.apps.mgr.main.db.dao.CoursesDao
 import com.blogspot.android_czy_java.apps.mgr.main.db.model.MessageWithAuthorModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -13,7 +14,8 @@ import javax.inject.Inject
 class ChatPresenter @Inject constructor(
     private val coursesDao: CoursesDao,
     private val sendMessage: SendChatMessage,
-    private val observeFirestoreMessages: ObserveFirestoreMessages
+    private val observeFirestoreMessages: ObserveFirestoreMessages,
+    private val vote: Vote
 ) {
 
     lateinit var messagesLiveData: LiveData<List<MessageWithAuthorModel>>
@@ -42,4 +44,9 @@ class ChatPresenter @Inject constructor(
             coursesDao.setPoints(courseId, points)
         }.start()
     }
+
+    fun upvoteMessage(messageId: String) {
+        vote.execute(messageId)
+    }
+
 }

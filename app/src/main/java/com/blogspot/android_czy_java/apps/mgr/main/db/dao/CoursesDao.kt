@@ -55,4 +55,10 @@ interface CoursesDao {
     @Query("UPDATE taskComments SET points=:points WHERE id=:commentId")
     fun updateCommentPoints(points: Long, commentId: String)
 
+    @Query("SELECT firebaseId FROM messages WHERE courseId=:courseId")
+    fun getChatMessagesIds(courseId: String): List<String>
+
+    @Query("UPDATE messages SET points=:points WHERE firebaseId=:messageId")
+    fun updateMessagePoints(points: Long, messageId: String)
+
 }

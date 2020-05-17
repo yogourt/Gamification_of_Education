@@ -15,7 +15,10 @@ class ObserveFirestoreMessages @Inject constructor(
     private val coursesDao: CoursesDao
 ) {
 
+    private lateinit var courseId: String
+
     fun execute(courseId: String) {
+        this.courseId = courseId
         firestore.collection(FirestoreKeys.COLLECTION_MESSAGES)
             .whereEqualTo(FirestoreKeys.COURSE_ID, courseId)
             .addSnapshotListener { data, exception ->
@@ -29,13 +32,25 @@ class ObserveFirestoreMessages @Inject constructor(
         Thread {
             val messagesToAdd = mutableListOf<MessageModel>()
             for (change in snapshot.documentChanges) {
+                if(change.type == DocumentChange.Type.MODIFIED) {
+                    updateMessagePoints(change.document)
+                }
                 if (change.type == DocumentChange.Type.ADDED) {
                     messagesToAdd.add(convertToMessage(change.document))
                 }
             }
+            val currentMessagesIds = coursesDao.getChatMessagesIds(courseId)
+            messagesToAdd.removeAll { currentMessagesIds.contains(it.firebaseId) }
             coursesDao.insertChatMessages(messagesToAdd)
             addPointsForUserMessages(messagesToAdd)
         }.start()
+    }
+
+    private fun updateMessagePoints(snapshot: QueryDocumentSnapshot) {
+        val messageHashMap = snapshot.data
+        val messageId = snapshot.id
+        val points = messageHashMap[FirestoreKeys.POINTS] as Long
+        coursesDao.updateMessagePoints(points, messageId)
     }
 
     private fun addPointsForUserMessages(messagesToAdd: MutableList<MessageModel>) {
@@ -59,6 +74,7 @@ class ObserveFirestoreMessages @Inject constructor(
             messageHashMap[FirestoreKeys.COURSE_ID].toString(),
             messageHashMap[FirestoreKeys.MESSAGE].toString(),
             messageHashMap[FirestoreKeys.USER_ID].toString(),
+            messageHashMap[FirestoreKeys.POINTS] as? Long ?: 0,
             messageHashMap[FirestoreKeys.TIMESTAMP] as Long
         )
     }

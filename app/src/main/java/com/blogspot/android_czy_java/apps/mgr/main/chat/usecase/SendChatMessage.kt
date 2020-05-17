@@ -44,7 +44,7 @@ class SendChatMessage @Inject constructor(
         id?.let {
             Thread {
                 coursesDao.insertChatMessage(
-                    MessageModel(it, message.courseId, message.message, userId, timestamp)
+                    MessageModel(it, message.courseId, message.message, userId, 0, timestamp)
                 )
             }.start()
         }
