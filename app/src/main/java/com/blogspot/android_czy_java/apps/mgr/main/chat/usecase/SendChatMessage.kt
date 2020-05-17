@@ -5,9 +5,7 @@ import com.blogspot.android_czy_java.apps.mgr.main.chat.exception.UserIsNullExce
 import com.blogspot.android_czy_java.apps.mgr.main.db.dao.CoursesDao
 import com.blogspot.android_czy_java.apps.mgr.main.db.model.MessageModel
 import com.blogspot.android_czy_java.apps.mgr.main.firebase.FirestoreKeys
-import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject

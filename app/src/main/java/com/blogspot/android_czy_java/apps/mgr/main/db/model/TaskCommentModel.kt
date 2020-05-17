@@ -14,8 +14,7 @@ class TaskCommentModel(
     val message: String,
     val link: String?,
     val timestamp: Long,
-    val points: Int,
-    val liked: Boolean
+    val points: Long
 )
 
 class TaskCommentWithAuthorModel(

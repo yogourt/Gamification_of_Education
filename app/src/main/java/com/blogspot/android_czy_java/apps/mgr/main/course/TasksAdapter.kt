@@ -3,13 +3,11 @@ package com.blogspot.android_czy_java.apps.mgr.main.course
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.blogspot.android_czy_java.apps.mgr.R
 import com.blogspot.android_czy_java.apps.mgr.main.db.model.TaskModel
-import com.blogspot.android_czy_java.apps.mgr.main.db.model.TaskWithCommentsModel
 import kotlinx.android.synthetic.main.item_course_task.view.*
 
 class TasksAdapter(private val taskList: List<TaskModel>, private val callback: TaskAdapterCallback) :

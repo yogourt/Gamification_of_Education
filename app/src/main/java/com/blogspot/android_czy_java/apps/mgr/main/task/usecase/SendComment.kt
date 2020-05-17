@@ -25,12 +25,13 @@ class SendComment @Inject constructor(
             } else {
 
                 val timestamp = System.currentTimeMillis()
+                val linkProcessed = if(link != null && !link.startsWith("http")) "http://${link}" else link
 
                 firestore.collection(FirestoreKeys.COLLECTION_TASK_COMMENTS)
-                    .add(createCommentHashMap(message, link, taskId, userId, timestamp))
+                    .add(createCommentHashMap(message, linkProcessed, taskId, userId, timestamp))
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
-                            insertCommentToDb(task.result?.id, message, link, userId, taskId, timestamp)
+                            insertCommentToDb(task.result?.id, message, linkProcessed, userId, taskId, timestamp)
                             emitter.onSuccess(true)
                         } else emitter.onError(MessageNotSentException())
                     }
@@ -48,7 +49,7 @@ class SendComment @Inject constructor(
         id?.let {
             Thread {
                 coursesDao.insertTaskComment(
-                    TaskCommentModel(it, userId, taskId, message, link, timestamp, 0, false)
+                    TaskCommentModel(it, userId, taskId, message, link, timestamp, 0)
                 )
             }.start()
         }

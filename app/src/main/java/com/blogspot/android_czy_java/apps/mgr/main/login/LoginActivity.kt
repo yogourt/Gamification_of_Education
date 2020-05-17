@@ -35,6 +35,7 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
             presenter.googleSignInOptions
         )
 
+        presenter.resetPointsIfNeeded()
         if (!presenter.isFetchNeeded()) {
             startMainActivity()
         } else {

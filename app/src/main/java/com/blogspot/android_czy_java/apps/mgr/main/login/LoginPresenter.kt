@@ -17,6 +17,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
+import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -69,6 +70,24 @@ class LoginPresenter @Inject constructor(
 
     fun saveUser(user: FirebaseUser) {
         saveUserFromFirebase.execute(user, true)
+    }
+
+    fun resetPointsIfNeeded() {
+        if (isPointResetNeeded()) {
+            resetPoints()
+        }
+    }
+
+    private fun isPointResetNeeded(): Boolean {
+        return System.currentTimeMillis() - preferences.getLong(
+            PreferencesKeys.KEY_LAST_POINTS_RESET,
+            0
+        ) > TimeUnit.DAYS.toMillis(1)
+    }
+
+    private fun resetPoints() {
+        preferences.edit().putInt(PreferencesKeys.KEY_POINTS_ADMITTED, 0)
+            .putLong(PreferencesKeys.KEY_LAST_POINTS_RESET, System.currentTimeMillis()).apply()
     }
 
     val fetchState = MutableLiveData<Boolean>()

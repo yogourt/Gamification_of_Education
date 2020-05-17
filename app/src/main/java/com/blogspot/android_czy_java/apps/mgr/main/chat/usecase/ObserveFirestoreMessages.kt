@@ -3,7 +3,6 @@ package com.blogspot.android_czy_java.apps.mgr.main.chat.usecase
 import com.blogspot.android_czy_java.apps.mgr.main.db.dao.CoursesDao
 import com.blogspot.android_czy_java.apps.mgr.main.db.model.MessageModel
 import com.blogspot.android_czy_java.apps.mgr.main.firebase.FirestoreKeys
-import com.google.api.ChangeType
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore

@@ -46,4 +46,13 @@ interface CoursesDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
     fun insertTaskComment(comment: TaskCommentModel)
 
+    @Insert(onConflict = OnConflictStrategy.ABORT)
+    fun insertTaskComments(comments: List<TaskCommentModel>)
+
+    @Query("SELECT id FROM taskComments WHERE taskId=:taskId")
+    fun getTaskCommentsIds(taskId: String): List<String>
+
+    @Query("UPDATE taskComments SET points=:points WHERE id=:commentId")
+    fun updateCommentPoints(points: Long, commentId: String)
+
 }

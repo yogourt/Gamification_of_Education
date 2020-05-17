@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.blogspot.android_czy_java.apps.mgr.R
 import com.blogspot.android_czy_java.apps.mgr.main.chat.ChatFragment
 import com.blogspot.android_czy_java.apps.mgr.main.db.model.TaskModel
-import com.blogspot.android_czy_java.apps.mgr.main.db.model.TaskWithCommentsModel
 import com.blogspot.android_czy_java.apps.mgr.main.task.TaskFragment
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_course.view.*

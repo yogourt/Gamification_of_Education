@@ -8,5 +8,7 @@ interface PreferencesKeys {
         const val KEY_ACCESS_TOKEN = "access token"
         const val KEY_REFRESH_TOKEN = "refresh token"
         const val KEY_LAST_CLASSROOM_API_FETCH = "last classroom api fetch"
+        const val KEY_POINTS_ADMITTED = "points admitted"
+        const val KEY_LAST_POINTS_RESET = "last points reset"
     }
 }

@@ -1,0 +1,5 @@
+
+const COLLECTION_TASK_COMMENTS = "Task_comments"
+const COLLECTION_MESSAGES = "Messages"
+
+module.exports = { COLLECTION_TASK_COMMENTS, COLLECTION_MESSAGES }
