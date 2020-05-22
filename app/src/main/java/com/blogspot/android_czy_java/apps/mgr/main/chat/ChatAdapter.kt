@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.blogspot.android_czy_java.apps.mgr.R
 import com.blogspot.android_czy_java.apps.mgr.main.db.model.MessageWithAuthorModel
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_chat_message.view.*
 
 class ChatAdapter(
@@ -31,8 +32,15 @@ class ChatAdapter(
     override fun onBindViewHolder(holder: MessageViewHolder, position: Int) {
         holder.apply {
             val messageData = messages[position].message
+            val authorData = messages[position].author
             message.text = messageData.message
             points.text = messageData.points.toString()
+
+            if (!(position > 0 && messages[position - 1].message.authorId == authorData.id)) {
+                nickname.text = authorData.nickname
+                Glide.with(photo).load(
+                    authorData.photo ?: R.drawable.ic_profile).into(photo)
+            }
             thumb.setOnClickListener { callback.upvoteMessage(messageData.firebaseId) }
 
         }
@@ -43,6 +51,8 @@ class ChatAdapter(
         val message: TextView = itemView.message
         val points: TextView = itemView.points
         val thumb: ImageView = itemView.thumb
+        val nickname: TextView = itemView.nickname
+        val photo: ImageView = itemView.author_icon
 
     }
 

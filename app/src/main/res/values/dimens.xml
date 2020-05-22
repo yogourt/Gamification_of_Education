@@ -13,4 +13,7 @@
     <dimen name="large_text_size">20sp</dimen>
     <dimen name="user_photo_size">100dp</dimen>
     <dimen name="label_padding">4dp</dimen>
+    <dimen name="thumb_size">14dp</dimen>
+    <dimen name="avatar_size">100dp</dimen>
+    <dimen name="avatar_padding">8dp</dimen>
 </resources>

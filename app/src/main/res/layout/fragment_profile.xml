@@ -2,6 +2,7 @@
 
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/activity_margin">
@@ -23,6 +24,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+        <ImageView
+                android:id="@+id/avatar_edit"
+                android:layout_width="@dimen/thumb_size"
+                android:layout_height="@dimen/thumb_size"
+                android:src="@drawable/ic_edit"
+                android:tint="@color/secondaryColor"
+                app:layout_constraintBottom_toBottomOf="@+id/user_photo"
+                app:layout_constraintEnd_toEndOf="@+id/user_photo"
+                android:clickable="true"
+                android:focusable="true"/>
 
         <TextView
                 android:id="@+id/points"
@@ -58,6 +69,16 @@
                 app:layout_constraintBottom_toTopOf="@+id/name"
                 app:layout_constraintEnd_toEndOf="@+id/name"
                 app:layout_constraintStart_toStartOf="@+id/name" />
+
+        <ImageView
+                android:layout_width="@dimen/thumb_size"
+                android:layout_height="@dimen/thumb_size"
+                android:src="@drawable/ic_edit"
+                android:tint="@color/secondaryColor"
+                app:layout_constraintBottom_toTopOf="@+id/name"
+                app:layout_constraintStart_toEndOf="@+id/name_label"
+                android:layout_marginStart="2dp"/>
+
 
         <TextView
                 android:id="@+id/points_label"

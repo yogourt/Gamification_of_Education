@@ -8,6 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.blogspot.android_czy_java.apps.mgr.R
+import com.blogspot.android_czy_java.apps.mgr.main.chat.ChatFragment
+import com.blogspot.android_czy_java.apps.mgr.main.profile.avatar.ChooseAvatarBottomSheetDialog
+import com.bumptech.glide.Glide
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_profile.view.*
 import javax.inject.Inject
@@ -34,6 +37,19 @@ class ProfileFragment : Fragment() {
 
     private fun prepareLayout(view: View) {
         presenter.pointsLiveData.observe(this, Observer { view.points.text = it.toString() })
-        presenter.userLiveData.observe(this, Observer { view.name.text = it.nickname })
+        presenter.userLiveData.observe(this, Observer {
+            view.name.text = it.nickname
+            view.user_photo.let { photoIV ->
+                Glide.with(this).load(it.photo).into(photoIV)
+            }
+        })
+
+        view.avatar_edit.setOnClickListener {
+            openAvatarChooserDialog()
+        }
+    }
+
+    private fun openAvatarChooserDialog() {
+        fragmentManager?.let { ChooseAvatarBottomSheetDialog.getInstance().show(it, null) }
     }
 }
