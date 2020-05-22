@@ -21,4 +21,7 @@ interface UserDao {
 
     @Query("SELECT * FROM users WHERE id=:userId")
     abstract fun getCurrentUser(userId: String?): LiveData<UserModel>
+
+    @Query("UPDATE users SET photo=:avatar WHERE id=:userId")
+    abstract fun updateAvatar(avatar: String, userId: String)
 }

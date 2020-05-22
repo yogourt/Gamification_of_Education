@@ -40,7 +40,8 @@ class ProfileFragment : Fragment() {
         presenter.userLiveData.observe(this, Observer {
             view.name.text = it.nickname
             view.user_photo.let { photoIV ->
-                Glide.with(this).load(it.photo).into(photoIV)
+                val resource = getPhotoRes(it.photo, photoIV.context)
+                Glide.with(this).load(resource).into(photoIV)
             }
         })
 
@@ -48,6 +49,9 @@ class ProfileFragment : Fragment() {
             openAvatarChooserDialog()
         }
     }
+
+    private fun getPhotoRes(photo: String?, context: Context) =
+        resources.getIdentifier(photo ?: "ic_profile", "drawable", context.packageName)
 
     private fun openAvatarChooserDialog() {
         fragmentManager?.let { ChooseAvatarBottomSheetDialog.getInstance().show(it, null) }

@@ -27,14 +27,14 @@ class AvatarsAdapter(private val callback: AvatarAdapterCallback) :
     override fun onBindViewHolder(holder: AvatarViewHolder, position: Int) {
         holder.apply {
             val resource = itemView.resources.getIdentifier(
-                "avatar${position}",
+                "avatar${position+1}",
                 "drawable",
                 itemView.context.packageName
             )
             avatar.apply {
                 Glide.with(this).load(resource).into(this)
                 this.setOnClickListener {
-                    callback.onAvatarClick("avatar${position}")
+                    callback.onAvatarClick("avatar${position+1}")
                 }
             }
         }
