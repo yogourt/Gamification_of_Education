@@ -2,7 +2,6 @@
 
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/activity_margin">
@@ -60,6 +59,20 @@
                 app:layout_constraintStart_toEndOf="@+id/user_photo"
                 app:layout_constraintTop_toTopOf="@+id/user_photo" />
 
+        <EditText
+                android:id="@+id/name_et"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxWidth="120dp"
+                android:textColor="@color/secondaryDarkColor"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@+id/points"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/user_photo"
+                app:layout_constraintTop_toTopOf="@+id/user_photo" />
+
         <TextView
                 android:id="@+id/name_label"
                 android:layout_width="wrap_content"
@@ -71,6 +84,7 @@
                 app:layout_constraintStart_toStartOf="@+id/name" />
 
         <ImageView
+                android:id="@+id/name_edit"
                 android:layout_width="@dimen/thumb_size"
                 android:layout_height="@dimen/thumb_size"
                 android:src="@drawable/ic_edit"

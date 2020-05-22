@@ -17,11 +17,14 @@ interface UserDao {
     fun insertUser(user: UserModel)
 
     @Query("SELECT SUM(activityPoints) FROM course")
-    abstract fun getCurrentUserPoints(): LiveData<Int>
+    fun getCurrentUserPoints(): LiveData<Int>
 
     @Query("SELECT * FROM users WHERE id=:userId")
-    abstract fun getCurrentUser(userId: String?): LiveData<UserModel>
+    fun getCurrentUser(userId: String?): LiveData<UserModel>
 
     @Query("UPDATE users SET photo=:avatar WHERE id=:userId")
-    abstract fun updateAvatar(avatar: String, userId: String)
+    fun updateAvatar(avatar: String, userId: String)
+
+    @Query("UPDATE users SET nickname=:nickname WHERE id=:userId")
+    fun updateNickname(userId: String, nickname: String)
 }

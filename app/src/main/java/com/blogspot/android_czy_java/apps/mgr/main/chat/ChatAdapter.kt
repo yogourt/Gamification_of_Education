@@ -1,5 +1,6 @@
 package com.blogspot.android_czy_java.apps.mgr.main.chat
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.blogspot.android_czy_java.apps.mgr.R
 import com.blogspot.android_czy_java.apps.mgr.main.db.model.MessageWithAuthorModel
 import com.bumptech.glide.Glide
+import kotlinx.android.synthetic.main.fragment_profile.view.*
 import kotlinx.android.synthetic.main.item_chat_message.view.*
+import kotlinx.android.synthetic.main.item_chat_message.view.points
 
 class ChatAdapter(
     private val messages: List<MessageWithAuthorModel>,
@@ -38,13 +41,17 @@ class ChatAdapter(
 
             if (!(position > 0 && messages[position - 1].message.authorId == authorData.id)) {
                 nickname.text = authorData.nickname
-                Glide.with(photo).load(
-                    authorData.photo ?: R.drawable.ic_profile).into(photo)
+                photo.let { photoIV ->
+                    val resource = getPhotoRes(authorData.photo, photoIV.context)
+                    Glide.with(photoIV).load(resource).into(photoIV)
+                }
             }
             thumb.setOnClickListener { callback.upvoteMessage(messageData.firebaseId) }
-
         }
     }
+
+    private fun getPhotoRes(photo: String?, context: Context) =
+        context.resources.getIdentifier(photo ?: "ic_profile", "drawable", context.packageName)
 
     inner class MessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
