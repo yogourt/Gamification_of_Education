@@ -33,6 +33,7 @@ class ChatPresenter @Inject constructor(
             sendMessage.execute(MessageWithCourseId(message, courseId))
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
+                .subscribe()
         }
     }
 

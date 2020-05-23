@@ -37,8 +37,8 @@ interface CoursesDao {
     @Query("UPDATE course SET points=:points WHERE id=:courseId")
     fun setPoints(courseId: String, points: Long)
 
-    @Query("SELECT points FROM course WHERE id=:courseId")
-    fun getPoints(courseId: String): LiveData<Long>
+    @Query("SELECT(COALESCE((SELECT SUM(points) FROM taskComments WHERE taskId IN (SELECT id FROM tasks WHERE courseId=:courseId) AND authorId=:userId), 0) + COALESCE((SELECT SUM(points) FROM messages WHERE courseId=:courseId AND authorId=:userId), 0))")
+    fun getPoints(courseId: String, userId: String?): LiveData<Long>
 
     @Query("SELECT points FROM course WHERE id=:courseId")
     fun getPointsValue(courseId: String): Long

@@ -20,7 +20,6 @@ class ProfilePresenter @Inject constructor(
         observeFirestorePoints.execute()
     }
 
-    val pointsLiveData = userDao.getCurrentUserPoints()
     val userLiveData = userDao.getCurrentUser(FirebaseAuth.getInstance().currentUser?.uid)
 
     fun changeNickname(nickname: String) = changeNickname.execute(nickname)

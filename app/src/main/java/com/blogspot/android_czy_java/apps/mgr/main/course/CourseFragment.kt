@@ -61,7 +61,7 @@ class CourseFragment : Fragment(), TasksAdapter.TaskAdapterCallback {
     }
 
     private fun setActivityPoints(points: TextView) {
-        presenter.getActivityPoints().observe(this, Observer { points.text = it.toString() })
+        presenter.getActivityPoints().observe(this, Observer { points.text = it?.toString() ?: "0" })
     }
 
     private fun setProgress(view: View, progress: Int) {
