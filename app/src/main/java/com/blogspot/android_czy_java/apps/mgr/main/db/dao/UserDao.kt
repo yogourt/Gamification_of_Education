@@ -27,4 +27,7 @@ interface UserDao {
 
     @Query("UPDATE users SET nickname=:nickname WHERE id=:userId")
     fun updateNickname(userId: String, nickname: String)
+
+    @Query("UPDATE users SET points=:points WHERE id=:userId")
+    fun updatePoints(userId: String, points: Long)
 }

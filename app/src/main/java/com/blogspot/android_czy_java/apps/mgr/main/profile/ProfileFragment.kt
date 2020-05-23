@@ -33,6 +33,7 @@ class ProfileFragment : Fragment() {
     ): View {
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
         prepareLayout(view)
+        presenter.init()
         return view
     }
 
@@ -42,9 +43,9 @@ class ProfileFragment : Fragment() {
     }
 
     private fun prepareLayout(view: View) {
-        presenter.pointsLiveData.observe(this, Observer { view.points.text = it.toString() })
         presenter.userLiveData.observe(this, Observer {
             view.name.text = it.nickname
+            view.points.text = it.points.toString()
             view.user_photo.let { photoIV ->
                 val resource = getPhotoRes(it.photo, photoIV.context)
                 Glide.with(this).load(resource).into(photoIV)
