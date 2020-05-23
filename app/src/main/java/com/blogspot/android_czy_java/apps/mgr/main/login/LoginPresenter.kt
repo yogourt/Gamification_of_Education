@@ -1,10 +1,7 @@
 package com.blogspot.android_czy_java.apps.mgr.main.login
 
 import android.content.SharedPreferences
-import android.util.TimeUtils
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.blogspot.android_czy_java.apps.mgr.R
 import com.blogspot.android_czy_java.apps.mgr.main.PreferencesKeys
 import com.blogspot.android_czy_java.apps.mgr.main.classroom_api.FetchCoursesDataUseCase
 import com.blogspot.android_czy_java.apps.mgr.main.login.usecase.GetAccessToken
@@ -14,10 +11,8 @@ import com.google.android.gms.common.api.Scope
 import com.google.api.services.classroom.ClassroomScopes
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
-import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -74,7 +69,7 @@ class LoginPresenter @Inject constructor(
 
     fun resetPointsIfNeeded() {
         if (isPointResetNeeded()) {
-            resetPoints()
+            resetPointsAdmittedToday()
         }
     }
 
@@ -85,7 +80,7 @@ class LoginPresenter @Inject constructor(
         ) > TimeUnit.DAYS.toMillis(1)
     }
 
-    private fun resetPoints() {
+    private fun resetPointsAdmittedToday() {
         preferences.edit().putInt(PreferencesKeys.KEY_POINTS_ADMITTED, 0)
             .putLong(PreferencesKeys.KEY_LAST_POINTS_RESET, System.currentTimeMillis()).apply()
     }

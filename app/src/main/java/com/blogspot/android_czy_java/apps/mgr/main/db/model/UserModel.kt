@@ -8,5 +8,6 @@ class UserModel(
     @PrimaryKey
     val id: String,
     val nickname: String,
-    val photo: String?
+    val photo: String?,
+    val points: Long
 )

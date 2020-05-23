@@ -6,6 +6,7 @@ class FirestoreKeys {
         const val COLLECTION_USERS = "Users"
         const val KEY_USER_NICKNAME = "nickname"
         const val KEY_USER_PHOTO = "photo"
+        const val KEY_USER_POINTS = "points"
         const val USER_ID = "user_id"
         const val MESSAGE = "message"
         const val COURSE_ID = "course_id"

@@ -3,6 +3,8 @@ package com.blogspot.android_czy_java.apps.mgr.main.login.usecase
 import com.blogspot.android_czy_java.apps.mgr.main.db.dao.UserDao
 import com.blogspot.android_czy_java.apps.mgr.main.db.model.UserModel
 import com.google.firebase.auth.FirebaseUser
+import io.reactivex.Scheduler
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class SaveUserFromFirebase @Inject constructor(
@@ -14,14 +16,17 @@ class SaveUserFromFirebase @Inject constructor(
 
         Thread {
 
-            val mappedUser = UserModel(user.uid, user.displayName ?: "nickname", null)
+            val mappedUser = UserModel(user.uid, user.displayName ?: "nickname", null, 0)
 
-            if (!userDao.containsUserId(user.uid)) {
-                userDao.insertUser(mappedUser)
-            }
 
             if (appUser) {
-                sendUserToFirebaseIfNeeded.execute(mappedUser)
+                sendUserToFirebaseIfNeeded.execute(mappedUser).subscribe { user ->
+                    Thread {
+                        if (!userDao.containsUserId(user.id)) {
+                            userDao.insertUser(user)
+                        }
+                    }.start()
+                }
             }
 
         }.start()
