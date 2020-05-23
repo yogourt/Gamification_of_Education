@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.blogspot.android_czy_java.apps.mgr.R
+import com.blogspot.android_czy_java.apps.mgr.main.db.model.MessageModel
 import com.blogspot.android_czy_java.apps.mgr.main.db.model.MessageWithAuthorModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.AndroidSupportInjection
@@ -54,8 +55,8 @@ class ChatFragment : Fragment(), ChatAdapter.ChatAdapterCallback {
         }
     }
 
-    override fun upvoteMessage(messageId: String) {
-        if(!presenter.upvoteMessage(messageId)) {
+    override fun upvoteMessage(message: MessageModel) {
+        if(!presenter.upvoteMessage(message)) {
             Snackbar.make(chat, chat.context.getString(R.string.msg_points_exceeded), Snackbar.LENGTH_LONG).show()
         }
     }

@@ -42,7 +42,6 @@ class ObserveFirestoreMessages @Inject constructor(
             val currentMessagesIds = coursesDao.getChatMessagesIds(courseId)
             messagesToAdd.removeAll { currentMessagesIds.contains(it.firebaseId) }
             coursesDao.insertChatMessages(messagesToAdd)
-            addPointsForUserMessages(messagesToAdd)
         }.start()
     }
 
@@ -53,18 +52,6 @@ class ObserveFirestoreMessages @Inject constructor(
         coursesDao.updateMessagePoints(points, messageId)
     }
 
-    private fun addPointsForUserMessages(messagesToAdd: MutableList<MessageModel>) {
-        if (messagesToAdd.isNotEmpty()) {
-            val points =
-                messagesToAdd.filter {
-                    it.authorId == FirebaseAuth.getInstance().currentUser?.uid
-                }
-                    .count().toLong()
-            if (points != 0L) {
-                coursesDao.setPoints(messagesToAdd[0].courseId, points)
-            }
-        }
-    }
 
     private fun convertToMessage(snapshot: QueryDocumentSnapshot): MessageModel {
         val messageHashMap = snapshot.data

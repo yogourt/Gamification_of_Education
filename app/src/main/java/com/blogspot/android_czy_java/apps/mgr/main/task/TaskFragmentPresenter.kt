@@ -1,6 +1,7 @@
 package com.blogspot.android_czy_java.apps.mgr.main.task
 
 import com.blogspot.android_czy_java.apps.mgr.main.db.dao.CoursesDao
+import com.blogspot.android_czy_java.apps.mgr.main.db.model.TaskCommentModel
 import com.blogspot.android_czy_java.apps.mgr.main.db.model.TaskCommentWithAuthorModel
 import com.blogspot.android_czy_java.apps.mgr.main.task.usecase.ObserveFirestoreComments
 import com.blogspot.android_czy_java.apps.mgr.main.task.usecase.SendComment
@@ -34,7 +35,7 @@ class TaskFragmentPresenter @Inject constructor(
             .observeOn(AndroidSchedulers.mainThread())
     }
 
-    fun tryToVote(commentId: String, upvote: Boolean) = vote.execute(commentId, upvote)
+    fun tryToVote(comment: TaskCommentModel, upvote: Boolean) = vote.execute(comment, upvote)
 
     fun sortCommentsByPoints(comments: List<TaskCommentWithAuthorModel>) {
         Collections.sort(comments) { o1, o2 -> (o2.taskComment.points - o1.taskComment.points).toInt() }

@@ -5,6 +5,7 @@ const vote = require('../vote').vote
 exports.voteForComment = functions.https.onCall((data, context) => {
     let upvote = data.upvote
     let commentId = data.commentId
+    let authorId = data.authorId
 
-    vote(COLLECTION_TASK_COMMENTS, commentId, upvote)
+    vote(COLLECTION_TASK_COMMENTS, commentId, authorId, upvote)
   });

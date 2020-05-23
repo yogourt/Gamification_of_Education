@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.blogspot.android_czy_java.apps.mgr.R
+import com.blogspot.android_czy_java.apps.mgr.main.db.model.MessageModel
 import com.blogspot.android_czy_java.apps.mgr.main.db.model.MessageWithAuthorModel
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_profile.view.*
@@ -46,7 +47,7 @@ class ChatAdapter(
                     Glide.with(photoIV).load(resource).into(photoIV)
                 }
             }
-            thumb.setOnClickListener { callback.upvoteMessage(messageData.firebaseId) }
+            thumb.setOnClickListener { callback.upvoteMessage(messageData) }
         }
     }
 
@@ -64,6 +65,6 @@ class ChatAdapter(
     }
 
     interface ChatAdapterCallback {
-        fun upvoteMessage(messageId: String)
+        fun upvoteMessage(message: MessageModel)
     }
 }

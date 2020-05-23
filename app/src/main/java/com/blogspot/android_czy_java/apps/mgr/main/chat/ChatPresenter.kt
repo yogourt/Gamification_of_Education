@@ -6,6 +6,7 @@ import com.blogspot.android_czy_java.apps.mgr.main.chat.usecase.ObserveFirestore
 import com.blogspot.android_czy_java.apps.mgr.main.chat.usecase.SendChatMessage
 import com.blogspot.android_czy_java.apps.mgr.main.chat.usecase.Vote
 import com.blogspot.android_czy_java.apps.mgr.main.db.dao.CoursesDao
+import com.blogspot.android_czy_java.apps.mgr.main.db.model.MessageModel
 import com.blogspot.android_czy_java.apps.mgr.main.db.model.MessageWithAuthorModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -32,20 +33,10 @@ class ChatPresenter @Inject constructor(
             sendMessage.execute(MessageWithCourseId(message, courseId))
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { _ ->
-                    addPointForChatMessage()
-                }
         }
     }
 
-    private fun addPointForChatMessage() {
-        Thread {
-            val points = coursesDao.getPointsValue(courseId).plus(1)
-            coursesDao.setPoints(courseId, points)
-        }.start()
-    }
-
-    fun upvoteMessage(messageId: String) = vote.execute(messageId)
+    fun upvoteMessage(message: MessageModel) = vote.execute(message)
 
 
 }

@@ -3,6 +3,7 @@ package com.blogspot.android_czy_java.apps.mgr.main.chat.usecase
 import android.content.SharedPreferences
 import com.blogspot.android_czy_java.apps.mgr.main.MAX_POINTS_PER_DAY
 import com.blogspot.android_czy_java.apps.mgr.main.PreferencesKeys
+import com.blogspot.android_czy_java.apps.mgr.main.db.model.MessageModel
 import com.blogspot.android_czy_java.apps.mgr.main.firebase.FirestoreKeys
 import com.google.android.gms.tasks.Task
 import com.google.firebase.functions.FirebaseFunctions
@@ -13,7 +14,7 @@ class Vote @Inject constructor(
     private val preferences: SharedPreferences
 ) {
 
-    fun execute(messageId: String, upvote: Boolean = true): Boolean {
+    fun execute(message: MessageModel, upvote: Boolean = true): Boolean {
 
         if (isMaxPointsAdmittedToday()) {
             return false
@@ -21,7 +22,7 @@ class Vote @Inject constructor(
 
         FirebaseFunctions.getInstance()
             .getHttpsCallable(FirestoreKeys.CLOUD_FUNCTION_VOTE_FOR_MESSAGE)
-            .call(createUpvoteDataMap(messageId, upvote)).addOnSuccessListener {
+            .call(createUpvoteDataMap(message, upvote)).addOnSuccessListener {
                 incrementPointsAdmittedToday()
             }
         return true
@@ -31,9 +32,10 @@ class Vote @Inject constructor(
         return MAX_POINTS_PER_DAY - preferences.getInt(PreferencesKeys.KEY_POINTS_ADMITTED, 0) <= 0
     }
 
-    private fun createUpvoteDataMap(messageId: String, upvote: Boolean): HashMap<String, Any> {
+    private fun createUpvoteDataMap(message: MessageModel, upvote: Boolean): HashMap<String, Any> {
         return hashMapOf(
-            FirestoreKeys.KEY_MESSAGE_ID to messageId,
+            FirestoreKeys.KEY_MESSAGE_ID to message.firebaseId,
+            FirestoreKeys.KEY_AUTHOR_ID to message.authorId,
             FirestoreKeys.KEY_UPVOTE to upvote
         )
     }

@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.blogspot.android_czy_java.apps.mgr.R
+import com.blogspot.android_czy_java.apps.mgr.main.db.model.TaskCommentModel
 import com.blogspot.android_czy_java.apps.mgr.main.db.model.TaskCommentWithAuthorModel
 import com.blogspot.android_czy_java.apps.mgr.main.db.model.TaskWithCommentsModel
 import com.google.android.material.snackbar.Snackbar
@@ -81,17 +82,17 @@ class TaskFragment : Fragment() {
             message.movementMethod = LinkMovementMethod.getInstance()
             points.text = comment.taskComment.points.toString()
             upvote_button.setOnClickListener {
-                tryToVote(comment.taskComment.id, true)
+                tryToVote(comment.taskComment, true)
             }
             downvote_button.setOnClickListener {
-                tryToVote(comment.taskComment.id, false)
+                tryToVote(comment.taskComment, false)
             }
         }
         return commentLayout
     }
 
-    private fun View.tryToVote(commentId: String, upvote: Boolean) {
-        if(!presenter.tryToVote(commentId, upvote)) {
+    private fun View.tryToVote(comment: TaskCommentModel, upvote: Boolean) {
+        if(!presenter.tryToVote(comment, upvote)) {
             showErrorSnackbar(this, context.getString(R.string.msg_points_exceeded))
         }
     }

@@ -22,6 +22,7 @@ class FirestoreKeys {
         const val KEY_UPVOTE = "upvote"
         const val KEY_COMMENT_ID = "commentId"
         const val KEY_MESSAGE_ID = "messageId"
+        const val KEY_AUTHOR_ID = "authorId"
 
         const val CLOUD_FUNCTION_VOTE_FOR_COMMENT = "voteForComment"
         const val CLOUD_FUNCTION_VOTE_FOR_MESSAGE = "voteForMessage"
