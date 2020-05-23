@@ -45,8 +45,7 @@ class ChatPresenter @Inject constructor(
         }.start()
     }
 
-    fun upvoteMessage(messageId: String) {
-        vote.execute(messageId)
-    }
+    fun upvoteMessage(messageId: String) = vote.execute(messageId)
+
 
 }

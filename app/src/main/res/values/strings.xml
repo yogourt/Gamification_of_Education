@@ -16,4 +16,5 @@
     <string name="link_label">Link:</string>
     <string name="comment_empty">Komentarz nie może być pusty</string>
     <string name="sth_wrong">Coś poszło nie tak: %s</string>
+    <string name="msg_points_exceeded">Przyznano już dzisiaj maksymalną ilość punktów.</string>
 </resources>

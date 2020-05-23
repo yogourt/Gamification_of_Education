@@ -15,7 +15,7 @@ class CourseFragmentPresenter @Inject constructor(private val courseDao: Courses
     fun getCourseTitle(): LiveData<String> =
         courseDao.getCourseTitle(courseId)
 
-    fun getActivityPoints(): LiveData<Int> =
+    fun getActivityPoints(): LiveData<Long> =
         courseDao.getPoints(courseId)
 
 

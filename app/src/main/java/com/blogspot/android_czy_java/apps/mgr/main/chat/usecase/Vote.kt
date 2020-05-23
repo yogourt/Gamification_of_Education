@@ -1,6 +1,7 @@
 package com.blogspot.android_czy_java.apps.mgr.main.chat.usecase
 
 import android.content.SharedPreferences
+import com.blogspot.android_czy_java.apps.mgr.main.MAX_POINTS_PER_DAY
 import com.blogspot.android_czy_java.apps.mgr.main.PreferencesKeys
 import com.blogspot.android_czy_java.apps.mgr.main.firebase.FirestoreKeys
 import com.google.android.gms.tasks.Task
@@ -12,12 +13,22 @@ class Vote @Inject constructor(
     private val preferences: SharedPreferences
 ) {
 
-    fun execute(messageId: String, upvote: Boolean = true) {
+    fun execute(messageId: String, upvote: Boolean = true): Boolean {
+
+        if (isMaxPointsAdmittedToday()) {
+            return false
+        }
+
         FirebaseFunctions.getInstance()
             .getHttpsCallable(FirestoreKeys.CLOUD_FUNCTION_VOTE_FOR_MESSAGE)
             .call(createUpvoteDataMap(messageId, upvote)).addOnSuccessListener {
                 incrementPointsAdmittedToday()
             }
+        return true
+    }
+
+    private fun isMaxPointsAdmittedToday(): Boolean {
+        return MAX_POINTS_PER_DAY - preferences.getInt(PreferencesKeys.KEY_POINTS_ADMITTED, 0) <= 0
     }
 
     private fun createUpvoteDataMap(messageId: String, upvote: Boolean): HashMap<String, Any> {

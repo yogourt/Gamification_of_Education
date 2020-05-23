@@ -16,8 +16,8 @@ interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertUser(user: UserModel)
 
-    @Query("SELECT SUM(activityPoints) FROM course")
-    fun getCurrentUserPoints(): LiveData<Int>
+    @Query("SELECT SUM(points) FROM course")
+    fun getCurrentUserPoints(): LiveData<Long>
 
     @Query("SELECT * FROM users WHERE id=:userId")
     fun getCurrentUser(userId: String?): LiveData<UserModel>

@@ -17,7 +17,7 @@ import com.blogspot.android_czy_java.apps.mgr.main.db.model.*
         UserModel::class,
         TaskCommentModel::class
     ],
-    version = 12,
+    version = 13,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {

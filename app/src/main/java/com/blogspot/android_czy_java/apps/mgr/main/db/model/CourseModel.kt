@@ -8,5 +8,5 @@ class CourseModel(
     @PrimaryKey
     val id: String,
     val title: String,
-    val activityPoints: Int
+    val points: Long
 )

@@ -59,8 +59,8 @@ class ObserveFirestoreMessages @Inject constructor(
                 messagesToAdd.filter {
                     it.authorId == FirebaseAuth.getInstance().currentUser?.uid
                 }
-                    .count()
-            if (points != 0) {
+                    .count().toLong()
+            if (points != 0L) {
                 coursesDao.setPoints(messagesToAdd[0].courseId, points)
             }
         }

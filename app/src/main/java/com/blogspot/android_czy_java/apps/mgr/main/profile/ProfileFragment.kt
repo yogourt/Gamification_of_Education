@@ -58,6 +58,7 @@ class ProfileFragment : Fragment() {
         view.avatar_edit.setOnClickListener {
             openAvatarChooserDialog()
         }
+
     }
 
     private fun allowNicknameChange(view: View, current: String) {

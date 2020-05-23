@@ -34,14 +34,14 @@ interface CoursesDao {
     @Query("SELECT title FROM course WHERE id=:courseId")
     fun getCourseTitle(courseId: String): LiveData<String>
 
-    @Query("UPDATE course SET activityPoints=:points WHERE id=:courseId")
-    fun setPoints(courseId: String, points: Int)
+    @Query("UPDATE course SET points=:points WHERE id=:courseId")
+    fun setPoints(courseId: String, points: Long)
 
-    @Query("SELECT activityPoints FROM course WHERE id=:courseId")
-    fun getPoints(courseId: String): LiveData<Int>
+    @Query("SELECT points FROM course WHERE id=:courseId")
+    fun getPoints(courseId: String): LiveData<Long>
 
-    @Query("SELECT activityPoints FROM course WHERE id=:courseId")
-    fun getPointsValue(courseId: String): Int
+    @Query("SELECT points FROM course WHERE id=:courseId")
+    fun getPointsValue(courseId: String): Long
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
     fun insertTaskComment(comment: TaskCommentModel)

@@ -91,9 +91,9 @@ class TaskFragment : Fragment() {
     }
 
     private fun View.tryToVote(commentId: String, upvote: Boolean) {
-        presenter.tryToVote(commentId, upvote)
-            .addOnFailureListener { showErrorSnackbar(this) }
-            .addOnCanceledListener { showErrorSnackbar(this) }
+        if(!presenter.tryToVote(commentId, upvote)) {
+            showErrorSnackbar(this, context.getString(R.string.msg_points_exceeded))
+        }
     }
 
     private fun tryToSendComment(view: View) {
