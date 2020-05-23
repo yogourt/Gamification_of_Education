@@ -59,6 +59,8 @@ class ProfileFragment : Fragment() {
             openAvatarChooserDialog()
         }
 
+        view.today_points.text = presenter.todayAdmittedPoints().toString()
+
     }
 
     private fun allowNicknameChange(view: View, current: String) {
