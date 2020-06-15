@@ -43,13 +43,14 @@ class FetchCoursesDataUseCase @Inject constructor(
         for (course in this) {
             Thread(Runnable {
                 try {
-                    coursesDao.insertCourse(CourseModel(course.id, course.name, 0))
-                } catch (e: Exception) {
-                }
+                    coursesDao.insertCourse(CourseModel(course.id, course.name))
+
                 val response = service.courses().courseWork().list(course.id).execute()
                 val courseWorks = response.courseWork
 
                 courseWorks?.insertTasks(service)
+                } catch (e: Exception) {
+                }
             }).start()
         }
     }

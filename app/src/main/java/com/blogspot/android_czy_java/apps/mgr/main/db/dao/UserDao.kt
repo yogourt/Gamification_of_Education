@@ -27,4 +27,7 @@ interface UserDao {
 
     @Query("UPDATE users SET points=:points WHERE id=:userId")
     fun updatePoints(userId: String, points: Long)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertUsers(users: MutableList<UserModel>)
 }

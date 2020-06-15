@@ -14,7 +14,8 @@ exports.vote = function vote(collectionPath, documentPath, authorId, upvote) {
 }
 
 function addPointsForAuthor(authorId) {
-    admin.firestore().collection(COLLECTION_USERS).doc(authorId).update({ points: increment })
+    const authorDocument = admin.firestore().collection(COLLECTION_USERS).doc(authorId)
+    authorDocument.update({ points: increment })
   }
 
 const increment = firestore.FieldValue.increment(1)

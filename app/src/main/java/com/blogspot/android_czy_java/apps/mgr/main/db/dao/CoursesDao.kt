@@ -34,14 +34,8 @@ interface CoursesDao {
     @Query("SELECT title FROM course WHERE id=:courseId")
     fun getCourseTitle(courseId: String): LiveData<String>
 
-    @Query("UPDATE course SET points=:points WHERE id=:courseId")
-    fun setPoints(courseId: String, points: Long)
-
     @Query("SELECT(COALESCE((SELECT SUM(points) FROM taskComments WHERE taskId IN (SELECT id FROM tasks WHERE courseId=:courseId) AND authorId=:userId), 0) + COALESCE((SELECT SUM(points) FROM messages WHERE courseId=:courseId AND authorId=:userId), 0))")
     fun getPoints(courseId: String, userId: String?): LiveData<Long>
-
-    @Query("SELECT points FROM course WHERE id=:courseId")
-    fun getPointsValue(courseId: String): Long
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
     fun insertTaskComment(comment: TaskCommentModel)
